@@ -63,12 +63,12 @@ with col5:
 st.markdown("* **Transportation**")
 col1, col2, col3, col4, col5 = st.columns(5)
 with col1:
-    n_transport = 1-st.slider("Transportation Availability", 0.0, 1.0, value = default)
+    n_transport = 1-st.slider("Transportation Availability", 0.0, 1.0, value = st.session_state['default'])
 
 st.markdown("* **Population**")
 col1, col2, col3, col4, col5 = st.columns(5)
 with col1:
-    pop_denisty_impt = st.slider("Population Density (population per sq km)", 0.0, 1.0, value = default)
+    pop_denisty_impt = st.slider("Population Density (population per sq km)", 0.0, 1.0, value = st.session_state['default'])
 
 ## CHANGE THIS ##
 # Finding the weighted avg
