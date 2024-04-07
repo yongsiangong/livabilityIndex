@@ -4,6 +4,7 @@ import numpy as np
 import json
 import streamlit as st
 from sklearn.preprocessing import MinMaxScaler
+import pyautogui
 
 # Set the page configurations
 st.set_page_config(layout="wide", page_title="SG Lions",)
