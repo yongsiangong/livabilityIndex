@@ -4,7 +4,6 @@ import numpy as np
 import json
 import streamlit as st
 from sklearn.preprocessing import MinMaxScaler
-import pyautogui
 
 # Set the page configurations
 st.set_page_config(layout="wide", page_title="SG Lions",)
@@ -67,10 +66,6 @@ st.markdown("* **Population**")
 col1, col2, col3, col4, col5 = st.columns(5)
 with col1:
     pop_density_impt = st.slider("Population Density (population per sq km)", 0.0, 1.0, value = default)
-
-f5_button = st.button('Refresh')
-if f5_button:
-    pyautogui.hotkey('f5')
     
 weights = np.array([kindergarten_impt, primary_impt, secondary_impt, 1-psf_pp_avg_impt, 1-psf_hdb_avg_impt, n_transport, gyms_impt, supermarkets_impt, hawkercentres_impt, parks_impt, pharmacies_impt, 1-pop_density_impt]) # Order must be the same as the columns in the excel file
 weights_str = ['Kindergarten', 'Primary', 'Secondary', 'Average PSF (Private)', 'Avergage PSF (HDB)', 'Transportation', 'Gym', 'Supermarket', 'Hawker Centres', 'Park', 'Pharmacy', 'Population Density'] # Order must be the same as weights above
