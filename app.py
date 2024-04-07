@@ -27,6 +27,7 @@ all_data.iloc[:,1:] = scaler.fit_transform(all_data.iloc[:,1:])
 st.subheader("Feature Importance")
 default = 0.0
 if st.button("Reset"):
+    default = 0.0
     st.rerun()
 
 st.markdown("* **Education**")
