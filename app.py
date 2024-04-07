@@ -41,23 +41,23 @@ with col3:
 st.markdown("* **Property**")
 col1, col2, col3, col4, col5 = st.columns(5)
 with col1:
-    psf_pp_avg_impt = 1-st.slider("Average PSF (Private Property)", 0.0 , 1.0, value = default)
+    psf_pp_avg_impt = 1-st.slider("Average PSF (Private Property)", 0.0 , 1.0, value = st.session_state['default'])
 with col2:
-    psf_hdb_avg_impt = 1-st.slider("Average PSF (HDB)", 0.0, 1.0, value = default)
+    psf_hdb_avg_impt = 1-st.slider("Average PSF (HDB)", 0.0, 1.0, value = st.session_state['default'])
 
 
 st.markdown("* **Amenities**")
 col1, col2, col3, col4, col5 = st.columns(5)
 with col1:
-    gyms_impt = st.slider("Gyms", 0.0, 1.0, value = default)
+    gyms_impt = st.slider("Gyms", 0.0, 1.0, value = st.session_state['default'])
 with col2:
-    supermarkets_impt = st.slider("Supermarkets", 0.0, 1.0, value = default)
+    supermarkets_impt = st.slider("Supermarkets", 0.0, 1.0, value = st.session_state['default'])
 with col3:
-    hawkercentres_impt = st.slider("Hawker Centres", 0.0, 1.0, value = default)
+    hawkercentres_impt = st.slider("Hawker Centres", 0.0, 1.0, value = st.session_state['default'])
 with col4:
-    parks_impt = st.slider("Parks", 0.0, 1.0, value = default)
+    parks_impt = st.slider("Parks", 0.0, 1.0, value = st.session_state['default'])
 with col5:
-    pharmacies_impt = st.slider("Pharmacies", 0.0, 1.0, value = default)
+    pharmacies_impt = st.slider("Pharmacies", 0.0, 1.0, value = st.session_state['default'])
 
 
 st.markdown("* **Transportation**")
