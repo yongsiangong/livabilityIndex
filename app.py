@@ -25,19 +25,18 @@ all_data.iloc[:,1:] = scaler.fit_transform(all_data.iloc[:,1:])
 
 #####################################################
 st.subheader("Feature Importance")
-
- if st.button("Reset feature importance to 0"):
-    default =  0.0
-else:
-    default =  0.5
+if 'key' not in st.session_state:
+    st.session_state['default'] = 0.5
+if st.button("Reset feature importance to 0"):
+    st.session_state['default'] = 0
 st.markdown("* **Education**")
 col1, col2, col3, col4, col5 = st.columns(5)
 with col1:
-    kindergarten_impt = st.slider("Kindergarten", 0.0 , 1.0, value = default)
+    kindergarten_impt = st.slider("Kindergarten", 0.0 , 1.0, value = st.session_state['default'])
 with col2:
-    primary_impt = st.slider("Primary School", 0.0 , 1.0, value = default)
+    primary_impt = st.slider("Primary School", 0.0 , 1.0, value = st.session_state['default'])
 with col3:
-    secondary_impt = st.slider("Secondary School", 0.0, 1.0, value = default)
+    secondary_impt = st.slider("Secondary School", 0.0, 1.0, value = st.session_state['default'])
 
 st.markdown("* **Property**")
 col1, col2, col3, col4, col5 = st.columns(5)
