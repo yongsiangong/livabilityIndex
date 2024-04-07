@@ -25,64 +25,61 @@ all_data.iloc[:,1:] = scaler.fit_transform(all_data.iloc[:,1:])
 
 #####################################################
 st.subheader("Feature Importance")
-if 'default' not in st.session_state:
-    st.session_state['default'] = 0.5
-if st.button("Reset feature importance to 0"):
-    st.session_state['default'] = 0
-st.write(st.session_state['default'])
+default = 0.0
+if st.button("Reset"):
+    st.rerun()
+
 st.markdown("* **Education**")
 col1, col2, col3, col4, col5 = st.columns(5)
 with col1:
-    kindergarten_impt = st.slider("Kindergarten", 0.0 , 1.0, value = st.session_state['default'])
+    kindergarten_impt = st.slider("Kindergarten", 0.0 , 1.0, value = default)
 with col2:
-    primary_impt = st.slider("Primary School", 0.0 , 1.0, value = st.session_state['default'])
+    primary_impt = st.slider("Primary School", 0.0 , 1.0, value = default)
 with col3:
-    secondary_impt = st.slider("Secondary School", 0.0, 1.0, value = st.session_state['default'])
+    secondary_impt = st.slider("Secondary School", 0.0, 1.0, value = default)
 
 st.markdown("* **Property**")
 col1, col2, col3, col4, col5 = st.columns(5)
 with col1:
-    psf_pp_avg_impt = 1-st.slider("Average PSF (Private Property)", 0.0 , 1.0, value = st.session_state['default'])
+    psf_pp_avg_impt = st.slider("Average PSF (Private Property)", 0.0 , 1.0, value = default)
 with col2:
-    psf_hdb_avg_impt = 1-st.slider("Average PSF (HDB)", 0.0, 1.0, value = st.session_state['default'])
-
+    psf_hdb_avg_impt = st.slider("Average PSF (HDB)", 0.0, 1.0, value = default)
 
 st.markdown("* **Amenities**")
 col1, col2, col3, col4, col5 = st.columns(5)
 with col1:
-    gyms_impt = st.slider("Gyms", 0.0, 1.0, value = st.session_state['default'])
+    gyms_impt = st.slider("Gyms", 0.0, 1.0, value = default)
 with col2:
-    supermarkets_impt = st.slider("Supermarkets", 0.0, 1.0, value = st.session_state['default'])
+    supermarkets_impt = st.slider("Supermarkets", 0.0, 1.0, value = default)
 with col3:
-    hawkercentres_impt = st.slider("Hawker Centres", 0.0, 1.0, value = st.session_state['default'])
+    hawkercentres_impt = st.slider("Hawker Centres", 0.0, 1.0, value = default)
 with col4:
-    parks_impt = st.slider("Parks", 0.0, 1.0, value = st.session_state['default'])
+    parks_impt = st.slider("Parks", 0.0, 1.0, value = default)
 with col5:
-    pharmacies_impt = st.slider("Pharmacies", 0.0, 1.0, value = st.session_state['default'])
+    pharmacies_impt = st.slider("Pharmacies", 0.0, 1.0, value = default)
 
 
 st.markdown("* **Transportation**")
 col1, col2, col3, col4, col5 = st.columns(5)
 with col1:
-    n_transport = 1-st.slider("Transportation Availability", 0.0, 1.0, value = st.session_state['default'])
+    n_transport = st.slider("Transportation Availability", 0.0, 1.0, value = default)
 
 st.markdown("* **Population**")
 col1, col2, col3, col4, col5 = st.columns(5)
 with col1:
-    pop_denisty_impt = st.slider("Population Density (population per sq km)", 0.0, 1.0, value = st.session_state['default'])
+    pop_density_impt = st.slider("Population Density (population per sq km)", 0.0, 1.0, value = default)
 
-## CHANGE THIS ##
-# Finding the weighted avg
-weights = np.array([kindergarten_impt, primary_impt, secondary_impt, psf_pp_avg_impt, psf_hdb_avg_impt, n_transport, gyms_impt, supermarkets_impt, hawkercentres_impt, parks_impt, pharmacies_impt, pop_denisty_impt]) # Order must be the same as the columns in the excel file
+
+weights = np.array([kindergarten_impt, primary_impt, secondary_impt, 1-psf_pp_avg_impt, 1-psf_hdb_avg_impt, n_transport, gyms_impt, supermarkets_impt, hawkercentres_impt, parks_impt, pharmacies_impt, 1-pop_density_impt]) # Order must be the same as the columns in the excel file
 weights_str = ['Kindergarten', 'Primary', 'Secondary', 'Average PSF (Private)', 'Avergage PSF (HDB)', 'Transportation', 'Gym', 'Supermarket', 'Hawker Centres', 'Park', 'Pharmacy', 'Population Density'] # Order must be the same as weights above
 score = (all_data.iloc[:,1:]  @ weights)/weights.sum(0)
 all_data['total_score'] = score
 
-#####################################################
 radar_col, map_col = st.columns(2)
 with radar_col:
     st.subheader("Radar Chart")
-    radar_df = pd.DataFrame(dict(r = weights,
+    weights_radar = np.array([kindergarten_impt, primary_impt, secondary_impt, psf_pp_avg_impt, psf_hdb_avg_impt, n_transport, gyms_impt, supermarkets_impt, hawkercentres_impt, parks_impt, pharmacies_impt, pop_density_impt])
+    radar_df = pd.DataFrame(dict(r = weights_radar,
                                  theta= weights_str
                                  )
                             )
@@ -100,8 +97,6 @@ with radar_col:
     radar.update_layout(height=600, width=700)
     st.plotly_chart(radar)
 
-
-#####################################################
 with map_col:
     st.subheader("Livability Index by District")
     #st.write("(Write something here?)")
@@ -131,7 +126,6 @@ with map_col:
 
     st.plotly_chart(fig1)
 
-#####################################################
 st.subheader("Top 5 Districts")
 top_3_df = all_data.sort_values('total_score', ascending = False).head(3)
 top_3_df['location'] = top_3_df['district'].apply(lambda x: district_location_map_dict.get(x,x))
