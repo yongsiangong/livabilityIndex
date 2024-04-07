@@ -26,9 +26,6 @@ all_data.iloc[:,1:] = scaler.fit_transform(all_data.iloc[:,1:])
 #####################################################
 st.subheader("Feature Importance")
 default = 0.0
-if st.button("Reset"):
-    default = 0.0
-    st.rerun()
 
 st.markdown("* **Education**")
 col1, col2, col3, col4, col5 = st.columns(5)
@@ -70,7 +67,10 @@ col1, col2, col3, col4, col5 = st.columns(5)
 with col1:
     pop_density_impt = st.slider("Population Density (population per sq km)", 0.0, 1.0, value = default)
 
-
+if st.button("Reset"):
+    default = 0.0
+    st.rerun()
+    
 weights = np.array([kindergarten_impt, primary_impt, secondary_impt, 1-psf_pp_avg_impt, 1-psf_hdb_avg_impt, n_transport, gyms_impt, supermarkets_impt, hawkercentres_impt, parks_impt, pharmacies_impt, 1-pop_density_impt]) # Order must be the same as the columns in the excel file
 weights_str = ['Kindergarten', 'Primary', 'Secondary', 'Average PSF (Private)', 'Avergage PSF (HDB)', 'Transportation', 'Gym', 'Supermarket', 'Hawker Centres', 'Park', 'Pharmacy', 'Population Density'] # Order must be the same as weights above
 score = (all_data.iloc[:,1:]  @ weights)/weights.sum(0)
