@@ -25,7 +25,7 @@ all_data.iloc[:,1:] = scaler.fit_transform(all_data.iloc[:,1:])
 
 #####################################################
 st.subheader("Feature Importance")
-if 'key' not in st.session_state:
+if 'default' not in st.session_state:
     st.session_state['default'] = 0.5
 if st.button("Reset feature importance to 0"):
     st.session_state['default'] = 0
