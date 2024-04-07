@@ -67,7 +67,7 @@ col1, col2, col3, col4, col5 = st.columns(5)
 with col1:
     pop_density_impt = st.slider("Population Density (population per sq km)", 0.0, 1.0, value = default)
 
-if st.button("Reset"):
+if st.button("Reset", on_click = st.rerun()):
     default = 0.0
     st.rerun()
     
