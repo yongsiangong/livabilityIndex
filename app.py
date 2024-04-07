@@ -25,47 +25,49 @@ all_data.iloc[:,1:] = scaler.fit_transform(all_data.iloc[:,1:])
 
 #####################################################
 st.subheader("Feature Importance")
-#st.write("(Write something to explain how to tune the features)")
+default = 0.5
+if st.button("Reset feature importance to 0"):
+    default = 0
 st.markdown("* **Education**")
 col1, col2, col3, col4, col5 = st.columns(5)
 with col1:
-    kindergarten_impt = st.slider("Kindergarten", 0.0 , 1.0, value = 0.5)
+    kindergarten_impt = st.slider("Kindergarten", 0.0 , 1.0, value = default)
 with col2:
-    primary_impt = st.slider("Primary School", 0.0 , 1.0, value = 0.5)
+    primary_impt = st.slider("Primary School", 0.0 , 1.0, value = default)
 with col3:
-    secondary_impt = st.slider("Secondary School", 0.0, 1.0, value = 0.5)
+    secondary_impt = st.slider("Secondary School", 0.0, 1.0, value = default)
 
 st.markdown("* **Property**")
 col1, col2, col3, col4, col5 = st.columns(5)
 with col1:
-    psf_pp_avg_impt = st.slider("Average PSF (Private Property)", 0.0 , 1.0, value = 0.5)
+    psf_pp_avg_impt = 1-st.slider("Average PSF (Private Property)", 0.0 , 1.0, value = default)
 with col2:
-    psf_hdb_avg_impt = st.slider("Average PSF (HDB)", 0.0, 1.0, value = 0.5)
+    psf_hdb_avg_impt = 1-st.slider("Average PSF (HDB)", 0.0, 1.0, value = default)
 
 
 st.markdown("* **Amenities**")
 col1, col2, col3, col4, col5 = st.columns(5)
 with col1:
-    gyms_impt = st.slider("Gyms", 0.0, 1.0, value = 0.5)
+    gyms_impt = st.slider("Gyms", 0.0, 1.0, value = default)
 with col2:
-    supermarkets_impt = st.slider("Supermarkets", 0.0, 1.0, value = 0.5)
+    supermarkets_impt = st.slider("Supermarkets", 0.0, 1.0, value = default)
 with col3:
-    hawkercentres_impt = st.slider("Hawker Centres", 0.0, 1.0, value = 0.5)
+    hawkercentres_impt = st.slider("Hawker Centres", 0.0, 1.0, value = default)
 with col4:
-    parks_impt = st.slider("Parks", 0.0, 1.0, value = 0.5)
+    parks_impt = st.slider("Parks", 0.0, 1.0, value = default)
 with col5:
-    pharmacies_impt = st.slider("Pharmacies", 0.0, 1.0, value = 0.5)
+    pharmacies_impt = st.slider("Pharmacies", 0.0, 1.0, value = default)
 
 
 st.markdown("* **Transportation**")
 col1, col2, col3, col4, col5 = st.columns(5)
 with col1:
-    n_transport = st.slider("Transportation Availability", 0.0, 1.0, value = 0.5)
+    n_transport = 1-st.slider("Transportation Availability", 0.0, 1.0, value = default)
 
 st.markdown("* **Population**")
 col1, col2, col3, col4, col5 = st.columns(5)
 with col1:
-    pop_denisty_impt = st.slider("Population Density (population per sq km)", 0.0, 1.0, value = 0.5)
+    pop_denisty_impt = st.slider("Population Density (population per sq km)", 0.0, 1.0, value = default)
 
 ## CHANGE THIS ##
 # Finding the weighted avg
