@@ -29,6 +29,7 @@ if 'default' not in st.session_state:
     st.session_state['default'] = 0.5
 if st.button("Reset feature importance to 0"):
     st.session_state['default'] = 0
+st.write(st.session_state['default'])
 st.markdown("* **Education**")
 col1, col2, col3, col4, col5 = st.columns(5)
 with col1:
