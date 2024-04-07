@@ -67,8 +67,7 @@ col1, col2, col3, col4, col5 = st.columns(5)
 with col1:
     pop_density_impt = st.slider("Population Density (population per sq km)", 0.0, 1.0, value = default)
 
-if st.button("Reset", on_click = st.rerun()):
-    default = 0.0
+if st.button("Reset"):
     st.rerun()
     
 weights = np.array([kindergarten_impt, primary_impt, secondary_impt, 1-psf_pp_avg_impt, 1-psf_hdb_avg_impt, n_transport, gyms_impt, supermarkets_impt, hawkercentres_impt, parks_impt, pharmacies_impt, 1-pop_density_impt]) # Order must be the same as the columns in the excel file
