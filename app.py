@@ -27,46 +27,76 @@ all_data.iloc[:,1:] = scaler.fit_transform(all_data.iloc[:,1:])
 st.subheader("Feature Importance")
 default = 0.0
 
+if 'kindergarten_impt' not in st.session_state:
+    st.session_state['kindergarten_impt'] = default
+if 'primary_impt' not in st.session_state:
+    st.session_state['primary_impt'] = default
+if 'secondary_impt' not in st.session_state:
+    st.session_state['secondary_impt'] = default
+if 'psf_pp_avg_impt' not in st.session_state:
+    st.session_state['psf_pp_avg_impt'] = default
+if 'psf_hdb_avg_impt' not in st.session_state:
+    st.session_state['psf_hdb_avg_impt'] = default
+if 'gyms_impt' not in st.session_state:
+    st.session_state['gyms_impt'] = default
+if 'supermarkets_impt' not in st.session_state:
+    st.session_state['supermarkets_impt'] = default
+if 'hawkercentres_impt' not in st.session_state:
+    st.session_state['hawkercentres_impt'] = default
+if 'parks_impt' not in st.session_state:
+    st.session_state['parks_impt'] = default
+if 'pharmacies_impt' not in st.session_state:
+    st.session_state['pharmacies_impt'] = default
+if 'n_transport' not in st.session_state:
+    st.session_state['n_transport'] = default
+if pop_density_impt not in st.session_state:
+    st.session_state['pop_density_impt'] = default
+
 st.markdown("* **Education**")
 col1, col2, col3, col4, col5 = st.columns(5)
 with col1:
-    kindergarten_impt = st.slider("Kindergarten", 0.0 , 1.0, value = default)
+    kindergarten_impt = st.slider("Kindergarten", 0.0 , 1.0, value = st.session_state['kindergarten_impt'])
 with col2:
-    primary_impt = st.slider("Primary School", 0.0 , 1.0, value = default)
+    primary_impt = st.slider("Primary School", 0.0 , 1.0, value = st.session_state['primary_impt'])
 with col3:
-    secondary_impt = st.slider("Secondary School", 0.0, 1.0, value = default)
+    secondary_impt = st.slider("Secondary School", 0.0, 1.0, value = st.session_state['secondary_impt'])
 
 st.markdown("* **Property**")
 col1, col2, col3, col4, col5 = st.columns(5)
 with col1:
-    psf_pp_avg_impt = st.slider("Average PSF (Private Property)", 0.0 , 1.0, value = default)
+    psf_pp_avg_impt = st.slider("Average PSF (Private Property)", 0.0 , 1.0, value = st.session_state['psf_pp_avg_impt'])
 with col2:
-    psf_hdb_avg_impt = st.slider("Average PSF (HDB)", 0.0, 1.0, value = default)
+    psf_hdb_avg_impt = st.slider("Average PSF (HDB)", 0.0, 1.0, value = st.session_state['psf_hdb_avg_impt'])
 
 st.markdown("* **Amenities**")
 col1, col2, col3, col4, col5 = st.columns(5)
 with col1:
-    gyms_impt = st.slider("Gyms", 0.0, 1.0, value = default)
+    gyms_impt = st.slider("Gyms", 0.0, 1.0, value = st.session_state['gyms_impt'])
 with col2:
-    supermarkets_impt = st.slider("Supermarkets", 0.0, 1.0, value = default)
+    supermarkets_impt = st.slider("Supermarkets", 0.0, 1.0, value = st.session_state['supermarkets_impt'])
 with col3:
-    hawkercentres_impt = st.slider("Hawker Centres", 0.0, 1.0, value = default)
+    hawkercentres_impt = st.slider("Hawker Centres", 0.0, 1.0, value = st.session_state['hawkercentres_impt'])
 with col4:
-    parks_impt = st.slider("Parks", 0.0, 1.0, value = default)
+    parks_impt = st.slider("Parks", 0.0, 1.0, value = st.session_state['parks_impt'])
 with col5:
-    pharmacies_impt = st.slider("Pharmacies", 0.0, 1.0, value = default)
+    pharmacies_impt = st.slider("Pharmacies", 0.0, 1.0, value = st.session_state['pharmacies_impt'])
 
 
 st.markdown("* **Transportation**")
 col1, col2, col3, col4, col5 = st.columns(5)
 with col1:
-    n_transport = st.slider("Transportation Availability", 0.0, 1.0, value = default)
+    n_transport = st.slider("Transportation Availability", 0.0, 1.0, value = st.session_state['n_transport'])
 
 st.markdown("* **Population**")
 col1, col2, col3, col4, col5 = st.columns(5)
 with col1:
-    pop_density_impt = st.slider("Population Density (population per sq km)", 0.0, 1.0, value = default)
-    
+    pop_density_impt = st.slider("Population Density (population per sq km)", 0.0, 1.0, value = st.session_state['pop_density_impt'])
+
+# Reset button
+if st.button('Reset'):
+    for key in st.session_state.keys():
+        st.session_state[key] = default
+
 weights = np.array([kindergarten_impt, primary_impt, secondary_impt, 1-psf_pp_avg_impt, 1-psf_hdb_avg_impt, n_transport, gyms_impt, supermarkets_impt, hawkercentres_impt, parks_impt, pharmacies_impt, 1-pop_density_impt]) # Order must be the same as the columns in the excel file
 weights_str = ['Kindergarten', 'Primary', 'Secondary', 'Average PSF (Private)', 'Avergage PSF (HDB)', 'Transportation', 'Gym', 'Supermarket', 'Hawker Centres', 'Park', 'Pharmacy', 'Population Density'] # Order must be the same as weights above
 score = (all_data.iloc[:,1:]  @ weights)/weights.sum(0)
