@@ -49,7 +49,7 @@ if 'pharmacies_impt' not in st.session_state:
     st.session_state['pharmacies_impt'] = default
 if 'n_transport' not in st.session_state:
     st.session_state['n_transport'] = default
-if pop_density_impt not in st.session_state:
+if 'pop_density_impt' not in st.session_state:
     st.session_state['pop_density_impt'] = default
 
 st.markdown("* **Education**")
