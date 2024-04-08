@@ -123,7 +123,7 @@ with map_col:
 
     st.plotly_chart(fig1)
 
-st.subheader("Top 5 Districts")
+st.subheader("Top 3 Districts")
 top_3_df = all_data.sort_values('total_score', ascending = False).head(3)
 top_3_df['location'] = top_3_df['district'].apply(lambda x: district_location_map_dict.get(x,x))
 
