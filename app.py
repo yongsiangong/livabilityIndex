@@ -96,6 +96,7 @@ with col1:
 if st.button('Reset'):
     for key in st.session_state.keys():
         st.session_state[key] = default
+    st.experimental_rerun()
 
 weights = np.array([kindergarten_impt, primary_impt, secondary_impt, 1-psf_pp_avg_impt, 1-psf_hdb_avg_impt, n_transport, gyms_impt, supermarkets_impt, hawkercentres_impt, parks_impt, pharmacies_impt, 1-pop_density_impt]) # Order must be the same as the columns in the excel file
 weights_str = ['Kindergarten', 'Primary', 'Secondary', 'Average PSF (Private)', 'Avergage PSF (HDB)', 'Transportation', 'Gym', 'Supermarket', 'Hawker Centres', 'Park', 'Pharmacy', 'Population Density'] # Order must be the same as weights above
