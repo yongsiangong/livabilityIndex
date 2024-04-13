@@ -28,9 +28,9 @@ all_data.iloc[:,1:] = scaler.fit_transform(all_data.iloc[:,1:])
 #####################################################
 st.subheader("Feature Importance")
 st.write("""To determine how livable different districts are, each district is scored using factors such as schools, property prices, transport, ammenities and population density. 
-            \nEach factor has a value that has been adjusted to be comparable across all districts. 
-            \nA user can assign importance to these factors by giving each a weight between 0 (not important) and 1 (very important). 
-            \nThe livability score for each district is then calculated by taking an average of these weighted factors.""")
+Each factor has a value that has been adjusted to be comparable across all districts. 
+            User can assign importance to these factors by giving each a weight between 0 (not important) and 1 (very important). 
+            The livability score for each district is then calculated by taking an average of these weighted factors.""")
 default = 0.0
 
 if 'kindergarten_impt' not in st.session_state:
