@@ -145,7 +145,7 @@ all_data['total_score'] = score
 radar_col, map_col = st.columns(2)
 with radar_col:
     st.subheader("Radar Chart")
-    st.write("Summary of the feature importance")
+    st.write("Summary of the feature importance.")
     weights_radar = np.array([kindergarten_impt, primary_impt, secondary_impt, psf_pp_avg_impt, psf_hdb_avg_impt, n_transport, gyms_impt, supermarkets_impt, hawkercentres_impt, parks_impt, pharmacies_impt, pop_density_impt])
     radar_df = pd.DataFrame(dict(r = weights_radar,
                                  theta= weights_str
@@ -167,7 +167,7 @@ with radar_col:
 
 with map_col:
     st.subheader("Livability Index by District")
-    #st.write("(Write something here?)")
+    st.write("""Here is your personalized score based on the importance you place on different features. This score is displayed on the map below, where varying shades of red indicate the level of livability — the darker the red, the higher the score.""")
     for feature in geojson_data["features"]:
         feature["properties"]["id"] = int(feature["properties"]["id"])
     geojson_df = pd.json_normalize(geojson_data["features"], sep="_")
@@ -195,7 +195,7 @@ with map_col:
     st.plotly_chart(fig1)
 
 st.subheader("Top 3 Districts")
-st.write("""Here is your personalized score based on the importance you place on different features. This score is displayed on the map below, where varying shades of red indicate the level of livability — the darker the red, the higher the score.""")
+stw.write("Customized top 3 districts and their scores.")
 top_3_df = all_data.sort_values('total_score', ascending = False).head(3)
 top_3_df['location'] = top_3_df['district'].apply(lambda x: district_location_map_dict.get(x,x))
 
