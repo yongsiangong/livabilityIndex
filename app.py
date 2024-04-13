@@ -10,7 +10,9 @@ st.set_page_config(layout="wide", page_title="SG Lions",)
 
 # Main titla
 st.title("SG Lions Livability Index")
-
+st.write("""The SG Lions team has developed this tool to calculate a livability index for Singapore's distinct districts, helping users choose ideal residential areas according to their needs. 
+            The tool will allow users to prioritize factors such as school proximity, public transport accessibility, property prices, and facility access, addressing the limitations of existing livability indices by 
+            incorporating specific urban characteristics of Singapore. This initiative aims to improve urban living and planning by facilitating informed residential choices.""")
 # Read data
 all_data = pd.read_excel("all_data.xlsx")
 with open("district.json") as file:
@@ -25,6 +27,10 @@ all_data.iloc[:,1:] = scaler.fit_transform(all_data.iloc[:,1:])
 
 #####################################################
 st.subheader("Feature Importance")
+st.write("""To determine how livable different districts are, each district is scored using factors such as schools, property prices, transport, ammenities and population density. 
+            \nEach factor has a value that has been adjusted to be comparable across all districts. 
+            \nA user can assign importance to these factors by giving each a weight between 0 (not important) and 1 (very important). 
+            \nThe livability score for each district is then calculated by taking an average of these weighted factors.""")
 default = 0.0
 
 if 'kindergarten_impt' not in st.session_state:
@@ -139,6 +145,7 @@ all_data['total_score'] = score
 radar_col, map_col = st.columns(2)
 with radar_col:
     st.subheader("Radar Chart")
+    st.write("Summary of the feature importance")
     weights_radar = np.array([kindergarten_impt, primary_impt, secondary_impt, psf_pp_avg_impt, psf_hdb_avg_impt, n_transport, gyms_impt, supermarkets_impt, hawkercentres_impt, parks_impt, pharmacies_impt, pop_density_impt])
     radar_df = pd.DataFrame(dict(r = weights_radar,
                                  theta= weights_str
@@ -188,6 +195,7 @@ with map_col:
     st.plotly_chart(fig1)
 
 st.subheader("Top 3 Districts")
+st.write("""Here is your personalized score based on the importance you place on different features. This score is displayed on the map below, where varying shades of red indicate the level of livability — the darker the red, the higher the score.""")
 top_3_df = all_data.sort_values('total_score', ascending = False).head(3)
 top_3_df['location'] = top_3_df['district'].apply(lambda x: district_location_map_dict.get(x,x))
 
