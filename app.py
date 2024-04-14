@@ -93,7 +93,7 @@ if 'reset_flag' not in st.session_state:
     st.session_state['reset_flag'] = False
 
 st.markdown("* **Education**")
-st.write("This feature reflects the total number of schools present in the district.")
+st.write("This feature reflects the number of schools per unit area in the district.")
 col1, col2, col3, col4, col5 = st.columns(5)
 with col1:
     kindergarten_impt = st.slider(
@@ -126,7 +126,7 @@ with col2:
         key = 'psf_hdb_avg_impt')
 
 st.markdown("* **Amenities**")
-st.write("This feature reflects the total number of ammenities present in the district.")
+st.write("This feature reflects the number of ammenities per unit area in the district.")
 col1, col2, col3, col4, col5 = st.columns(5)
 with col1:
     gyms_impt = st.slider(
@@ -155,7 +155,7 @@ with col5:
         key = 'pharmacies_impt')
 
 st.markdown("* **Transportation**")
-st.write("This feature reflects the total number of transportation options present in the district.")
+st.write("This feature reflects the number of transportation options per unit area in the district.")
 col1, col2, col3, col4, col5 = st.columns(5)
 with col1:
     n_transport = st.slider(
