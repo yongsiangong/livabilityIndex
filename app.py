@@ -34,6 +34,7 @@ for feature in data['features']:
     areas.append({'district': feature['properties']['id'], 'area': area})
 
 area_df = pd.DataFrame(areas)
+area_df['district'] = area_df['district'].astype(int)
 
 all_data = all_data.merge(area_df, left_on = 'district', right_on = 'district')
 all_data['count_of_kindergarten'] = all_data['count_of_kindergarten']/all_data['area']
