@@ -24,6 +24,9 @@ district_location_map_dict = dict(zip(district_location_map_df['district'], dist
 # MinMax transformation of the features
 scaler = MinMaxScaler()
 all_data.iloc[:,1:] = scaler.fit_transform(all_data.iloc[:,1:])
+all_data['psf PP Avg'] = 1 - all_data['psf PP Avg']
+all_data['psf HDB Avg'] = 1 - all_data['psf HDB Avg']
+all_data['population_density_per_sq_km'] = 1 - all_data['population_density_per_sq_km']
 
 #####################################################
 st.subheader("Feature Importance")
@@ -62,6 +65,7 @@ if 'reset_flag' not in st.session_state:
     st.session_state['reset_flag'] = False
 
 st.markdown("* **Education**")
+st.write("This feature reflects the total number of schools present in the district.")
 col1, col2, col3, col4, col5 = st.columns(5)
 with col1:
     kindergarten_impt = st.slider(
@@ -94,6 +98,7 @@ with col2:
         key = 'psf_hdb_avg_impt')
 
 st.markdown("* **Amenities**")
+st.write("This feature reflects the total number of ammenities present in the district.")
 col1, col2, col3, col4, col5 = st.columns(5)
 with col1:
     gyms_impt = st.slider(
@@ -122,6 +127,7 @@ with col5:
         key = 'pharmacies_impt')
 
 st.markdown("* **Transportation**")
+st.write("This feature reflects the total number of transportation options present in the district.")
 col1, col2, col3, col4, col5 = st.columns(5)
 with col1:
     n_transport = st.slider(
@@ -130,6 +136,7 @@ with col1:
         key = 'n_transport')
 
 st.markdown("* **Population**")
+st.write("This feature reflects the population density per square kilometers of the district.")
 col1, col2, col3, col4, col5 = st.columns(5)
 with col1:
     pop_density_impt = st.slider(
@@ -137,7 +144,7 @@ with col1:
         value = default if st.session_state['reset_flag'] else st.session_state['pop_density_impt'], 
         key = 'pop_density_impt')
 
-weights = np.array([kindergarten_impt, primary_impt, secondary_impt, 1-psf_pp_avg_impt, 1-psf_hdb_avg_impt, n_transport, gyms_impt, supermarkets_impt, hawkercentres_impt, parks_impt, pharmacies_impt, 1-pop_density_impt]) # Order must be the same as the columns in the excel file
+weights = np.array([kindergarten_impt, primary_impt, secondary_impt, psf_pp_avg_impt, psf_hdb_avg_impt, n_transport, gyms_impt, supermarkets_impt, hawkercentres_impt, parks_impt, pharmacies_impt, pop_density_impt]) # Order must be the same as the columns in the excel file
 weights_str = ['Kindergarten', 'Primary', 'Secondary', 'Average PSF (Private)', 'Avergage PSF (HDB)', 'Transportation', 'Gym', 'Supermarket', 'Hawker Centres', 'Park', 'Pharmacy', 'Population Density'] # Order must be the same as weights above
 score = (all_data.iloc[:,1:]  @ weights)/weights.sum(0)
 all_data['total_score'] = score
