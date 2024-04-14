@@ -4,6 +4,8 @@ import numpy as np
 import json
 import streamlit as st
 from sklearn.preprocessing import MinMaxScaler
+import json
+from shapely.geometry import shape, MultiPolygon
 
 # Set the page configurations
 st.set_page_config(layout="wide", page_title="SG Lions",)
@@ -20,6 +22,22 @@ with open("district.json") as file:
 district_location_map_df = pd.read_excel('district_location_map.xlsx')
 district_location_map_dict = dict(zip(district_location_map_df['district'], district_location_map_df['location']))# Get a district to location mapping
 
+# Load the JSON file
+with open('district.json', 'r') as f:
+    data = json.load(f)
+
+# Process each district
+areas = []
+for feature in data['features']:
+    polygon = shape(feature['geometry'])
+    area = polygon.area
+    areas.append({'district': feature['properties']['id'], 'area': area})
+
+area_df = pd.DataFrame(areas)
+
+all_data = all_data.merge(area_df, left_on = 'district', right_on = 'district')
+all_data['count_of_kindergarten'] = all_data['count_of_kindergarten']/all_data['area']
+all_data = all_data.drop(columns=['area'])
 
 # MinMax transformation of the features
 scaler = MinMaxScaler()
