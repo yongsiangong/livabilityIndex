@@ -38,6 +38,15 @@ area_df['district'] = area_df['district'].astype(int)
 
 all_data = all_data.merge(area_df, left_on = 'district', right_on = 'district')
 all_data['count_of_kindergarten'] = all_data['count_of_kindergarten']/all_data['area']
+all_data['count_of_primary_schools'] = all_data['count_of_primary_schools']/all_data['area']
+all_data['count_of_secondary_schools'] = all_data['count_of_secondary_schools']/all_data['area']
+all_data['n_transport'] = all_data['n_transport']/all_data['area']
+all_data['count_of_gyms'] = all_data['count_of_gyms']/all_data['area']
+all_data['count_of_supermarkets'] = all_data['count_of_supermarkets']/all_data['area']
+all_data['count_of_hawkercentres'] = all_data['count_of_hawkercentres']/all_data['area']
+all_data['count_of_parks'] = all_data['count_of_parks']/all_data['area']
+all_data['count_of_pharmacies'] = all_data['count_of_pharmacies']/all_data['area']
+
 all_data = all_data.drop(columns=['area'])
 
 # MinMax transformation of the features
