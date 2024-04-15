@@ -228,31 +228,31 @@ with map_col:
 
 
     st.plotly_chart(fig1)
-
-st.subheader("Top 3 Districts")
-st.write("Customized top 3 districts and their scores.")
-top_3_df = all_data.sort_values('total_score', ascending = False).head(3)
-top_3_df['location'] = top_3_df['district'].apply(lambda x: district_location_map_dict.get(x,x))
-
-first, second, third = st.columns(3)
-with first:
-    st.markdown(f"""
-                * **District {top_3_df['district'].values[0]}**\n
-                Locations: {top_3_df['location'].values[0]}\n
-                Total scores: {round(top_3_df['total_score'].values[0],3)}\n
-                """)
-with second:
-    st.markdown(f"""
-                * **District {top_3_df['district'].values[1]}**\n
-                Locations: {top_3_df['location'].values[1]}\n
-                Total scores: {round(top_3_df['total_score'].values[1],3)}\n
-                """)
-with third:
-    st.markdown(f"""
-                * **District {top_3_df['district'].values[2]}**\n
-                Locations: {top_3_df['location'].values[2]}\n
-                Total scores: {round(top_3_df['total_score'].values[2],3)}\n
-                """)
+if not score.isna().any():
+            st.subheader("Top 3 Districts")
+            st.write("Customized top 3 districts and their scores.")
+            top_3_df = all_data.sort_values('total_score', ascending = False).head(3)
+            top_3_df['location'] = top_3_df['district'].apply(lambda x: district_location_map_dict.get(x,x))
+            
+            first, second, third = st.columns(3)
+            with first:
+                st.markdown(f"""
+                            * **District {top_3_df['district'].values[0]}**\n
+                            Locations: {top_3_df['location'].values[0]}\n
+                            Total scores: {round(top_3_df['total_score'].values[0],3)}\n
+                            """)
+            with second:
+                st.markdown(f"""
+                            * **District {top_3_df['district'].values[1]}**\n
+                            Locations: {top_3_df['location'].values[1]}\n
+                            Total scores: {round(top_3_df['total_score'].values[1],3)}\n
+                            """)
+            with third:
+                st.markdown(f"""
+                            * **District {top_3_df['district'].values[2]}**\n
+                            Locations: {top_3_df['location'].values[2]}\n
+                            Total scores: {round(top_3_df['total_score'].values[2],3)}\n
+                            """)
 
 # for troubleshooting
 # st.write("Current session state before reset:", st.session_state)
