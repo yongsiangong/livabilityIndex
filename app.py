@@ -177,8 +177,6 @@ weights_str = ['Kindergarten', 'Primary', 'Secondary', 'Average PSF (Private)', 
 score = (all_data.iloc[:,1:]  @ weights)/weights.sum(0)
 all_data['total_score'] = score
 
-st.table(all_data)
-
 radar_col, map_col = st.columns(2)
 with radar_col:
     st.subheader("Radar Chart")
