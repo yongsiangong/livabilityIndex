@@ -54,7 +54,7 @@ scaler = MinMaxScaler()
 all_data.iloc[:,1:] = scaler.fit_transform(all_data.iloc[:,1:])
 all_data['psf PP Avg'] = 1 - all_data['psf PP Avg']
 all_data['psf HDB Avg'] = 1 - all_data['psf HDB Avg']
-all_data['population_density_per_sq_km'] = 1 - all_data['population_density_per_sq_km']
+
 
 #####################################################
 st.subheader("Feature Importance")
@@ -86,8 +86,6 @@ if 'pharmacies_impt' not in st.session_state:
     st.session_state['pharmacies_impt'] = default
 if 'n_transport' not in st.session_state:
     st.session_state['n_transport'] = default
-if 'pop_density_impt' not in st.session_state:
-    st.session_state['pop_density_impt'] = default
 
 if 'reset_flag' not in st.session_state:
     st.session_state['reset_flag'] = False
@@ -164,14 +162,6 @@ with col1:
         value = default if st.session_state['reset_flag'] else st.session_state['n_transport'], 
         key = 'n_transport')
 
-st.markdown("* **Population**")
-st.write("This feature reflects the population density per square kilometers of the district.")
-col1, col2, col3, col4, col5 = st.columns(5)
-with col1:
-    pop_density_impt = st.slider(
-        "Population Density (population per sq km)", min_value = 0.0, max_value = 1.0, 
-        value = default if st.session_state['reset_flag'] else st.session_state['pop_density_impt'], 
-        key = 'pop_density_impt')
 
 weights = np.array([kindergarten_impt, primary_impt, secondary_impt, psf_pp_avg_impt, psf_hdb_avg_impt, n_transport, gyms_impt, supermarkets_impt, hawkercentres_impt, parks_impt, pharmacies_impt, pop_density_impt]) # Order must be the same as the columns in the excel file
 weights_str = ['Kindergarten', 'Primary', 'Secondary', 'Average PSF (Private)', 'Avergage PSF (HDB)', 'Transportation', 'Gym', 'Supermarket', 'Hawker Centres', 'Park', 'Pharmacy', 'Population Density'] # Order must be the same as weights above
@@ -229,6 +219,7 @@ with map_col:
 
 
     st.plotly_chart(fig1)
+            
 if not score.isna().any():
             st.subheader("Top 3 Districts")
             st.write("Customized top 3 districts and their scores.")
