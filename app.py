@@ -172,8 +172,7 @@ radar_col, map_col = st.columns(2)
 with radar_col:
     st.subheader("Radar Chart")
     st.write("Summary of the feature importance.")
-    weights_radar = np.array([kindergarten_impt, primary_impt, secondary_impt, psf_pp_avg_impt, psf_hdb_avg_impt, n_transport, gyms_impt, supermarkets_impt, hawkercentres_impt, parks_impt, pharmacies_impt, pop_density_impt])
-    radar_df = pd.DataFrame(dict(r = weights_radar,
+    radar_df = pd.DataFrame(dict(r = weights,
                                  theta= weights_str
                                  )
                             )
