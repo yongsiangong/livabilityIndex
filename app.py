@@ -113,6 +113,7 @@ with col3:
         key = 'secondary_impt')
 
 st.markdown("* **Property**")
+st.write("This feature represents the average price of properties per square foot (psf) in each district, based on transactions from 2019 to 2024.")
 col1, col2, col3, col4, col5 = st.columns(5)
 with col1:
     psf_pp_avg_impt = st.slider(
