@@ -58,7 +58,7 @@ all_data['psf HDB Avg'] = 1 - all_data['psf HDB Avg']
 
 #####################################################
 st.subheader("Feature Importance")
-st.write("""To determine how livable different districts are, each district is scored using factors such as schools, property prices, transport, ammenities and population density. 
+st.write("""To determine how livable different districts are, each district is scored using factors such as schools, property prices, transport and ammenities. 
 Each factor has a value that has been adjusted to be comparable across all districts. 
             User can assign importance to these factors by giving each a weight between 0 (not important) and 1 (very important). 
             The livability score for each district is then calculated by taking an average of these weighted factors.""")
