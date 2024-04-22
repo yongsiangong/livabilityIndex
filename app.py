@@ -230,19 +230,19 @@ if not score.isna().any():
                 st.markdown(f"""
                             * **District {top_3_df['district'].values[0]}**\n
                             Locations: {top_3_df['location'].values[0]}\n
-                            Total scores: {round(top_3_df['total_score'].values[0],3)}\n
+                            Total score: {round(top_3_df['total_score'].values[0],3)}\n
                             """)
             with second:
                 st.markdown(f"""
                             * **District {top_3_df['district'].values[1]}**\n
                             Locations: {top_3_df['location'].values[1]}\n
-                            Total scores: {round(top_3_df['total_score'].values[1],3)}\n
+                            Total score: {round(top_3_df['total_score'].values[1],3)}\n
                             """)
             with third:
                 st.markdown(f"""
                             * **District {top_3_df['district'].values[2]}**\n
                             Locations: {top_3_df['location'].values[2]}\n
-                            Total scores: {round(top_3_df['total_score'].values[2],3)}\n
+                            Total score: {round(top_3_df['total_score'].values[2],3)}\n
                             """)
 
 # for troubleshooting
